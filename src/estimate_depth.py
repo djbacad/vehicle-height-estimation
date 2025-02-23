@@ -24,7 +24,8 @@ def main(video_filename):
 
     # Load the model
     model = DepthAnythingV2(**model_configs[encoder])
-    model_path = f'src/third_party/checkpoints/depth_anything_v2_{encoder}.pth'
+    #model_path = f'src/third_party/checkpoints/depth_anything_v2_{encoder}.pth'
+    model_path = f'../dav2_weights/depth_anything_v2_{encoder}.pth'
 
     # Load model weights to the correct device
     model.load_state_dict(torch.load(model_path, map_location=DEVICE, weights_only=True))
