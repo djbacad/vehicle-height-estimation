@@ -1,0 +1,4 @@
+venv_vhe
+src/third_party
+src/third_party/*
+src/third_party/checkpoints

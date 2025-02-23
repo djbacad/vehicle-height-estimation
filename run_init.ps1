@@ -1,4 +1,4 @@
-# Stop execution immediately if any command fails
+﻿# Stop execution immediately if any command fails
 $ErrorActionPreference = "Stop"
 
 # Function to write colored output with emojis
@@ -15,7 +15,7 @@ Write-EmojiMessage "🚀 Starting initialization..." Cyan
 # 1. Create Virtual Env
 Write-EmojiMessage "🥽 Creating virtual environment..." Yellow
 python -m venv venv_vhe
-venv_vhe/Scripts/activate
+. .\venv_vhe\Scripts\Activate.ps1
 Write-EmojiMessage "✅ Virtual Environment created successfully!" Green
 Write-Host ""
 
