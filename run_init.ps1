@@ -25,16 +25,16 @@ git submodule add https://github.com/DepthAnything/Depth-Anything-V2 src/third_p
 Write-EmojiMessage "✅ Git submodule added successfully!" Green
 Write-Host ""
 
-# 3. Install pip requirements
-Write-EmojiMessage "📦 Installing pip requirements..." Yellow
-pip install -r requirements.txt
-Write-EmojiMessage "✅ Pip requirements installed!" Green
-Write-Host ""
-
-# 4. Install PyTorch, torchvision, and torchaudio with CUDA 12.6 support
+# 3. Install PyTorch, torchvision, and torchaudio with CUDA 12.6 support
 Write-EmojiMessage "🛠 Installing PyTorch, torchvision, and torchaudio..." Yellow
 pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
 Write-EmojiMessage "✅ PyTorch packages installed!" Green
+Write-Host ""
+
+# 4. Install pip requirements
+Write-EmojiMessage "📦 Installing pip requirements..." Yellow
+pip install -r requirements.txt
+Write-EmojiMessage "✅ Pip requirements installed!" Green
 Write-Host ""
 
 # 5. Install NVIDIA cuDNN for CUDA 12
