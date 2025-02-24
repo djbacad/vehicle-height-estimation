@@ -1,95 +1,37 @@
 import os
-import streamlit as st
 import pandas as pd
-import zipfile
-from io import BytesIO
+import streamlit as st
 
-# Paths
-outputs_dir = "outputs"
+st.title("🚗 Vehicle Height Estimator – Results")
 
-# Page title
-st.title("📊 Processed Results")
-st.sidebar.title("🔍 Results")
-
-# List already processed videos
-processed_videos = [folder for folder in os.listdir(outputs_dir) if os.path.isdir(os.path.join(outputs_dir, folder))]
-
-if processed_videos:
-    video_selection = st.selectbox("Select a video to view results:", processed_videos)
-    if video_selection:
-        # Paths for results
-        base_output_dir = os.path.join(outputs_dir, video_selection)
-        combined_output_dir = os.path.join(base_output_dir, "combined")
-        logs_output_dir = os.path.join(base_output_dir, "_logs")
-        playback_dir = os.path.join(base_output_dir, "playback_tracking")
-        tracked_vessels_dir = os.path.join(base_output_dir, "tracked_vessels")
-
-        # Display tracked vessel images
-        st.header("Still Photos of Detected Vessels:")
-        tracked_images = [
-            os.path.join(tracked_vessels_dir, img)
-            for img in os.listdir(tracked_vessels_dir)
-            if img.endswith(".png")
-        ]
-        for img_path in tracked_images:
-            st.image(img_path, caption=os.path.basename(img_path))
-
-        # Create a ZIP file for tracked vessels
-        if tracked_images:
-            # Create an in-memory ZIP file
-            zip_buffer = BytesIO()
-            with zipfile.ZipFile(zip_buffer, "w") as zip_file:
-                for img_path in tracked_images:
-                    zip_file.write(img_path, arcname=os.path.basename(img_path))
-            zip_buffer.seek(0)
-
-            # Display download button for ZIP file
-            st.download_button(
-                label="Download All Tracked Vessel Images as ZIP",
-                data=zip_buffer,
-                file_name=f"{video_selection}_tracked_vessels.zip",
-                mime="application/zip"
-            )
-
-        # Display combined images
-        combined_images = [
-            os.path.join(combined_output_dir, img)
-            for img in os.listdir(combined_output_dir)
-            if img.endswith(".png")
-        ]
-        st.header("Depth Heatmap & Masks Visualization:")
-        for img_path in combined_images:
-            st.image(img_path, caption=os.path.basename(img_path))
-
-        # Display log file as table
-        log_files = [file for file in os.listdir(logs_output_dir) if file.endswith(".csv")]
-        if log_files:
-            log_file_path = os.path.join(logs_output_dir, log_files[0])
-            # Load CSV into a Pandas DataFrame
-            df = pd.read_csv(log_file_path)
-
-            st.header("Logs:")
-            st.dataframe(df, use_container_width=True)  # Display DataFrame as a table in Streamlit
-
-        # Provide download option for the processed video
-        st.header("Playback:")
-        processed_videos = [
-            os.path.join(playback_dir, vid)
-            for vid in os.listdir(playback_dir)
-            if vid.endswith(".mp4")
-        ]
-        if processed_videos:
-            processed_video_path = processed_videos[0]
-            # Load the video file into memory
-            with open(processed_video_path, "rb") as video_file:
-                video_data = video_file.read()
-
-            # Display download button for the video
-            st.download_button(
-                label="Download Processed Playback Video",
-                data=video_data,
-                file_name=os.path.basename(processed_video_path),
-                mime="video/mp4"
-            )
+# Check if the video suffix is available in session_state
+if "video_suffix" not in st.session_state or st.session_state["video_suffix"] is None:
+    st.warning("No video has been processed yet. Please run the pipeline from the main page first.")
 else:
-    st.info("No processed videos available yet. Please process a video first!")
+    suffix = st.session_state["video_suffix"]
+    base_out = os.path.join("outputs", suffix)
+    combined_dir = os.path.join(base_out, "combined")
+    logs_dir = os.path.join(base_out, "_logs")
+    logs_file = os.path.join(logs_dir, f"{suffix}_logs.csv")
+
+    st.subheader("Combined Visualization Images")
+    if os.path.exists(combined_dir):
+        combined_imgs = [
+            os.path.join(combined_dir, f)
+            for f in os.listdir(combined_dir)
+            if f.lower().endswith(".png")
+        ]
+        if combined_imgs:
+            for img_path in combined_imgs:
+                st.image(img_path, caption=os.path.basename(img_path))
+        else:
+            st.info("No combined images found yet.")
+    else:
+        st.info(f"No 'combined' folder found in outputs/{suffix}.")
+
+    st.subheader("Logs Table")
+    if os.path.exists(logs_file):
+        df = pd.read_csv(logs_file)
+        st.dataframe(df)
+    else:
+        st.info(f"No logs file found at {logs_file}.")
