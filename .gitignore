@@ -2,5 +2,6 @@ venv_vhe
 src/third_party
 src/third_party/*
 src/third_party/checkpoints
-yolo_weights
+models_yolo
+models_dav2
 outputs
