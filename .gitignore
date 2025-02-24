@@ -3,3 +3,4 @@ src/third_party
 src/third_party/*
 src/third_party/checkpoints
 yolo_weights
+outputs
