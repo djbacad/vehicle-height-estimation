@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import argparse
 import os
 import torch
@@ -98,14 +97,11 @@ def main(video_filename):
         if use_grayscale:
             depth_colored = np.repeat(depth_norm[..., np.newaxis], 3, axis=-1)
         else:
-            # You can use matplotlib's colormap or OpenCV's
-            # Here we use OpenCV's COLORMAP_PLASMA:
             depth_colored = cv2.applyColorMap(depth_norm, cv2.COLORMAP_PLASMA)
 
-        # Optionally, combine the raw image with the depth heatmap
         combine_images = True
         if combine_images:
-            split_region = np.ones((raw_img.shape[0], 50, 3), dtype=np.uint8) * 255  # white separator
+            split_region = np.ones((raw_img.shape[0], 50, 3), dtype=np.uint8) * 255 
             combined_result = cv2.hconcat([raw_img, split_region, depth_colored])
             output_image = combined_result
         else:

@@ -5,9 +5,10 @@ import sys
 import streamlit as st
 import numpy as np
 import torch
+from src.track_and_segment2 import process_video
 torch.classes.__path__ = [os.path.join(torch.__path__[0], torch.classes.__file__)] 
 torch.classes.__path__ = []
-from src.track_and_segment2 import process_video
+
 
 def run_script(script_path, video_suffix):
     """Calls estimate_depth.py or calculate.py with the given suffix."""

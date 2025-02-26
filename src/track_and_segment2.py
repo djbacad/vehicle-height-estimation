@@ -90,15 +90,14 @@ def process_video(yt_suffix, line_x=500, frame_tolerance=20, stream=False):
             _, enc = cv2.imencode(".jpg", annotated_frame)
             yield enc.tobytes()
 
-def segment_vehicle(frame, box, track_id, frame_no, base_out, seg_model):
-    # ... do segmentation, saving mask + mask viz
-    pass
+# def segment_vehicle(frame, box, track_id, frame_no, base_out, seg_model):
+#     # ... do segmentation, saving mask + mask viz
+#     pass
 
-def crop_vehicle(frame, box, track_id, frame_no, base_out):
-    # ... do cropping
-    pass
+# def crop_vehicle(frame, box, track_id, frame_no, base_out):
+#     # ... do cropping
+#     pass
 
-# For standalone usage (e.g. python track_and_segment.py K6xsEng2PhU)
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser()

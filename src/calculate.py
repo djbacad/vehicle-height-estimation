@@ -9,7 +9,7 @@ REFERENCE_OBJ_DEPTH = 46
 REFERENCE_OBJ_HEIGHT_PX = 60
 REFERENCE_OBJ_HEIGHT_ACTUAL = 0.65
 
-# FPS of the video (adjust if different)
+# FPS of the video
 FPS = 30
 
 def calculate_timestamp(frame_number, fps):
@@ -51,7 +51,7 @@ def process_vehicle(video_filename):
                     continue
                 id_part = image_name_parts[1]
                 frame_part = image_name_parts[3]
-                frame_num = int(frame_part)  # For timestamp calculation
+                frame_num = int(frame_part) 
 
                 timestamp = calculate_timestamp(frame_num, FPS)
 
@@ -109,7 +109,6 @@ def process_vehicle(video_filename):
 
                 text_x_mid = int(center_x)
                 text_y_mid = int(center_y)
-                # Clamp to avoid going off the middle image
                 text_y_mid = max(20, min(text_y_mid, mask_overlay.shape[0] - 10))
                 text_x_mid = max(0, min(text_x_mid, mask_overlay.shape[1] - 200))
 
@@ -118,19 +117,13 @@ def process_vehicle(video_filename):
                     height_text_px,
                     (text_x_mid, text_y_mid),
                     cv2.FONT_HERSHEY_SIMPLEX,
-                    1.0,                # font scale
-                    (255, 255, 255),    # white text
-                    2                   # thickness
+                    1.0,               
+                    (255, 255, 255),    
+                    2                  
                 )
 
-                # Right image overlay (raw image + depth)
                 image_overlay = cv2.addWeighted(img, 0.6, depth_colored, 0.4, 0)
 
-                # ===== Overlay the actual height (m) on the right image =====
-                # We'll place it near the same center of mass coordinates.
-                # Because image_overlay is the same size as the raw image, the same center coords apply.
-                # We'll clamp them similarly.
-                # Compute the actual height (m)
                 vehicle_depth_values = depth_normalized[(vehicle_mask > 0)]
                 vehicle_center_depth = depth_normalized[int(center_y), int(center_x)]
                 vehicle_height_actual = (
@@ -143,7 +136,6 @@ def process_vehicle(video_filename):
 
                 text_x_right = int(center_x)
                 text_y_right = int(center_y)
-                # Clamp to avoid going off the right image
                 text_y_right = max(20, min(text_y_right, image_overlay.shape[0] - 10))
                 text_x_right = max(0, min(text_x_right, image_overlay.shape[1] - 300))
 
@@ -152,9 +144,9 @@ def process_vehicle(video_filename):
                     height_text_m,
                     (text_x_right, text_y_right),
                     cv2.FONT_HERSHEY_SIMPLEX,
-                    1.0,                  # font scale
-                    (255, 255, 255),      # white text
-                    2                     # thickness
+                    1.0,                  
+                    (255, 255, 255),      
+                    2                     
                 )
 
                 # Combine all three horizontally

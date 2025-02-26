@@ -169,14 +169,11 @@ def main():
                     detection_boxes[track_id] = coords
 
         if save_frame:
-            # Retrieve the original (unannotated) frame if available.
-            # Some YOLO result objects have 'orig_img' or 'imgs' properties.
             if hasattr(result, 'orig_img'):
                 pure_frame = result.orig_img
             elif hasattr(result, 'imgs'):
                 pure_frame = result.imgs[0]
             else:
-                # If not available, fallback to a copy of the annotated frame (not ideal)
                 pure_frame = annotated_frame.copy()
 
             for tid in updated_ids:
