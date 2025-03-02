@@ -37,7 +37,13 @@ pip install -r requirements.txt
 Write-EmojiMessage "✅ Pip requirements installed!" Green
 Write-Host ""
 
-# 5. Install NVIDIA cuDNN for CUDA 12
+# 5. Install open-cv
+Write-EmojiMessage "📦 Installing pip requirements..." Yellow
+pip install opencv-python==4.11.0.86
+Write-EmojiMessage "✅ Pip requirements installed!" Green
+Write-Host ""
+
+# 6. Install NVIDIA cuDNN for CUDA 12
 Write-EmojiMessage "🔧 Installing NVIDIA cuDNN..." Yellow
 py -m pip install nvidia-cudnn-cu12
 Write-EmojiMessage "✅ NVIDIA cuDNN installed!" Green
