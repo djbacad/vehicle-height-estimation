@@ -26,7 +26,7 @@ This demo project implements an automated vehicle height estimation pipeline. Th
 - **Streamlit** - Creates an interactive two-page web UI that allows users to input a YouTube link and view processing results in real time.
 
 #### Hardware for Inference
-- Nvidia GeForce RTX 2060 Mobile GPU
+- Nvidia GeForce RTX 4070 Mobile GPU
 - Ryzen 9 AI HX 370
 
 #### Operating System:
