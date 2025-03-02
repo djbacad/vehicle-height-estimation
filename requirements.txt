@@ -1,6 +1,8 @@
 ipykernel==6.29.5
 ultralytics==8.3.78
+lap==0.5.12
 numpy==2.1.1
 pandas==2.2.3
 streamlit==1.42.2
 scipy==1.15.2
+pytubefix==8.12.2
