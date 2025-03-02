@@ -43,31 +43,33 @@ This demo project implements an automated vehicle height estimation pipeline. Th
 - **run_init.ps1** - Powershell script that automates the project initialization, including the creating of virtual env, addition of depthanythingv2 as submodule, and installation of dependencies.
 ---
 
-- Install dependencies:
-  ```bash
-  ./run_init.ps1
-  ```
+
 
 ### **Launching the App**
 #### A. Locally
-1. Open Terminal and issue the command:
+1. Install dependencies:
+  ```powershell
+  ./run_init.ps1
+  ```
+2. Open Terminal and issue the command:
   ```powershell
   streamlit run Inference.py
   ```
-#### B. Using Docker
 
-2. Build the Image - to create a Docker image, run:
+#### B. Using Docker
+1. Build the Image - to create a Docker image, run:
   ```powershell
   docker build -t vehicle-height-estimator .
   ```
 This will install all required dependencies and set up the Streamlit app inside the container.
 
-3. Running the Container
+2. Running the Container
 To run the container and expose the Streamlit app on port 8501 (this will also utilize GPU):
   ```powershell
   docker run --gpus all -p 8501:8501 vehicle-height-estimator 
   ```
-Open browser and go to:
+
+3. Open browser and go to:
   ```powershell
   http://localhost:8501
   ```
