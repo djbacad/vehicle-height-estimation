@@ -183,7 +183,7 @@ def main():
         cv2.imshow("Vehicle Detection", frame_np)
         if cv2.waitKey(1) & 0xFF == ord("q"):
             break
-    cv2.destroyAllWindows()
+    #cv2.destroyAllWindows()
 
 if __name__ == "__main__":
     main()

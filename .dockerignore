@@ -1,0 +1,9 @@
+# Ignore venv
+venv_vhe
+
+# Ignore outputs
+outputs
+
+# Ignore git directory
+.git
+.gitignore

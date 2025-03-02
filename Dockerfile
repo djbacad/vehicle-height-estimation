@@ -10,7 +10,7 @@ ENV STREAMLIT_SERVER_FILE_WATCHER_TYPE=none
 WORKDIR /app
 
 # Install system dependencies
-RUN apt-get update && apt-get install -y python3 python3-pip libgl1
+RUN apt-get update && apt-get install -y python3 python3-pip libgl1 libgtk2.0-dev pkg-config
 
 # Install torch, torchvision, and torchaudio with CUDA support directly
 RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126 --break-system-packages
@@ -20,7 +20,7 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt --break-system-packages
 
 # Uninstall opencv-python and install the headless version (for docker only)
-RUN pip install opencv-python-headless==4.11.0.86 --break-system-packages
+RUN pip install opencv-python==4.11.0.86 --break-system-packages
 
 # Copy the rest of project files
 COPY . .
